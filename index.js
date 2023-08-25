@@ -66,6 +66,15 @@ function fetchData() {
         infoTxt.innerText = "Something went wrong";
     });
 }
+function timeConverter(UNIX_timestamp){
+    var a = new Date(UNIX_timestamp * 1000);
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var time =hour + ':' + min ;
+    return time;
+}
+
+
 
 //в этой функции выводятся результаты запроса. если было введено некорректное название города, котороее передается в адрес api, то адрес становится несуществующим, т.е. возвращает код 404(страница не найдена) и  информацию по данному адресу мы получить не можем.
 //иначе(если адрес и введенный город корректный), мы получаем объект, в котором содержится информация по искомому городу(погода, координаты и тд.), из которой мы получаем нужные данные для вывода на странице
@@ -115,8 +124,20 @@ function weatherDetails(info) {
             <p>Wind</p>
         </div>
             <p class="txt">${info.wind.speed}m/s</p>`;
-        sysSunset.innerHTML = `Sunset: ${info.sys.sunset}`;
-        sysSunrise.innerHTML = `Sunrise: ${info.sys.sunrise}`;
+        sysSunset.innerHTML = 
+        `<div>
+            <p>Sunset</p>
+        </div>
+       
+            <p style="opacity: 1.4;" class="txt">${timeConverter(info.sys.sunset)}</p>
+        `;
+        sysSunrise.innerHTML = 
+        `<div>
+            <p>Sunrise</p>
+        </div>
+
+            <p style="opacity: 1;" class="txt">${timeConverter(info.sys.sunrise)}</p>
+`;
         feelsLike.innerHTML = 
         `<div>
             <img src="feels-like.png" alt="">
